@@ -1,0 +1,129 @@
+#DocumentsApp{
+    background: #eff1f3;
+} 
+
+#footer{
+    margin-top: 0;
+}
+
+#DocNav{
+    box-shadow: 0 3px 1px rgb(0 29 61 / 8%), 0 2px 2px rgb(0 29 61 / 8%), 0 1px 5px rgb(0 29 61 / 8%);
+    display: flex;
+    flex-direction: column;
+    padding: 24px 32px 0;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    width: 100vw;
+    z-index: 2;
+    background: white;
+}
+
+#DocNav a{ /* Name */
+    color: inherit;
+    text-decoration: none;
+}
+
+#DocNav h3{ /* Name */
+    color: #424852;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 46px;
+    margin: 0 0 16px;
+    text-align: center;
+}
+
+#DocNav img{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+}
+
+
+.menu-links{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.menu-links div{
+    color: black;
+    display: block;
+    white-space: nowrap;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    padding: 12px 24px 10px;
+    transition: all 0.4s ease;
+    cursor: pointer;
+}
+
+.menu-links div:hover{
+    color: #00a97f;
+}
+
+#Languages{
+    display: flex;
+    gap: 20px;
+    position: absolute;
+    font-weight: 700;
+    right: 30px;
+    top: 30px;
+}
+.language{cursor: pointer; transition: color .2s ease;}
+.language:hover{color: #00a97f;}
+.langCurrent{border-bottom: solid 2px #00a97f;}
+
+/* -----------------
+        Main
+-------------------*/
+
+main{
+    padding: 32px 0;
+    width: 100%;
+}
+
+#Document{
+    margin: 0 auto;
+    width: 100%;
+    font-size: 12px;
+}
+
+.policy{
+    background: white;
+    padding: 10mm 15mm 15mm;
+    box-shadow: 0 3px 1px rgb(0 29 61 / 8%), 0 2px 2px rgb(0 29 61 / 8%), 0 1px 5px rgb(0 29 61 / 8%);
+    margin: 0 auto 24px;
+    max-width: 21cm;
+    text-align: justify;
+    width: 100%;
+}
+
+/* ------------------
+        Styles
+---------------------*/
+
+.margin-bottom-1rem{margin-bottom: 1rem;}
+.margin-point5rem{margin-bottom: .5rem;}
+.font-weight-700{font-weight: 700;}
+.margin-0{margin: 0;}
+.text-transform-uppercase{text-transform: uppercase;}
+.text-align-center{text-align: center;}
+.text-decoration-none{text-decoration: none;}
+.color-inherit{color: inherit}
+
+ul li{
+    position: relative;
+    left: 20px;
+}
+
+.policy h3{
+    display: block;
+    font-size: 1.6em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}

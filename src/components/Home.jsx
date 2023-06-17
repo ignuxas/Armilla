@@ -1,174 +1,91 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState} from "react";
 import Axios from "axios";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-import { CartContext } from "./Contexts/CartContext";
-import { ItemsToCart } from "./Navigation";
-
 import Mastercard from "../resources/Mastercard-Logo.png"
 import Visa from "../resources/visa.png"
 
+import { Link } from "react-router-dom";
+
+import { changeImage } from "./Products";
+
+import { Gradient } from "whatamesh";
+
+export const api = "https://armillaapi.ignuxas.com"
+
 function Home() {
   const [ItemData, setData] = useState([]);
-  const { setCartItems } = useContext(CartContext);
+
+  var colorCount = 0;
 
   const getData = () => {
-    Axios.get("http://88.222.61.118:6969/api/Popular").then((response) => {
+    Axios.get(`${api}/products/popular`).then((response) => {
       setData(response.data);
     });
   };
 
-  const addItem = (ID, Name, Price, Size, Img, ColorID, Color, Material) => {
-    for(var i = 0; i < ItemsToCart.length; i++){
-      if(ItemsToCart[i]['ID'] === ID && ItemsToCart[i].ColorID === ColorID){
-        ItemsToCart[i]['Quantity'] = ItemsToCart[i]['Quantity'] + 1;
-        setCartItems([...ItemsToCart])
-        return(0);
-      }
-    }
-    ItemsToCart.push(
-      {
-        ID: ID,
-        Name: Name,
-        Price: Price,
-        Img: Img,
-        Quantity: 1,
-        ColorID: ColorID,
-        Material: Material,
-        Color: Color,
-        Size: Size
-      }
-    )
-    setCartItems([...ItemsToCart])
-  }
-
-  //need to rework these color changing functions cuz this a little unstable
-  function selectedData(ID, itemID, type){
-    var ItemEl = document.getElementsByClassName("itemContainer")[ID];
-    var colors = ItemEl.getElementsByClassName("Color")
-    for(var i = 0; i < colors.length; i++){
-      if(type === 'img'){
-        return(ItemEl.getElementsByClassName("product-img")[0]).src;
-      }
-      var CColor = colors[i].classList.toString();
-      if(CColor.includes("Selected") === true){
-        if(type === "color"){return CColor.split(" ")[1]}
-        else{
-          for(var j = 0; j < ItemData.length; j++){
-              if(ItemData[j].ID === itemID){
-                for(var k = 0; k < ItemData[j].Colors.length; k++){
-                  if(ItemData[j].Colors[k].Color === CColor.split(" ")[1]){
-                    if(type === "Material"){
-                      return(ItemData[j].Colors[k].Material)
-                    }
-                    else if (type === "colorID"){
-                      return(ItemData[j].Colors[k].ColorID)
-                    }
-                    else if (type === "payExtra"){
-                      return(ItemData[j].Colors[k].Extra)
-                    }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  function selectColor(id, itemID, price, color, material, img){
-    var ItemEl = document.getElementsByClassName("itemContainer")[id];
-    var colors = ItemEl.getElementsByClassName("Color")
-    for(var i = 0; i < colors.length; i++){
-      var CColor = colors[i].classList.toString();
-      colors[i].classList = "Color " + CColor.split(" ")[1];
-    }
-    //Add a "Selected" class to the selected color in the color pannel
-    ItemEl.getElementsByClassName("Color " + color)[0].classList = "Color " + color + " Selected";
-    //Change image according to color
-    ItemEl.getElementsByClassName("product-img")[0].src = img;
-    ItemEl.getElementsByClassName("matName")[0].innerHTML = " | " + material;
-    //ItemEl.getElementsByClassName("price")[0].innerHTML = selectedData("payExtra");
-    ItemEl.getElementsByClassName("productPrice")[0].innerHTML = price + selectedData(id, itemID, "payExtra") + " €"
-  }
-
+  const gradient = new Gradient()
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     getData();
     AOS.init();
     AOS.refresh();
+    
+    gradient.initGradient('#gradient-canvas')
   }, []);
-
-  var delay = 0;
-
-  function getDelay(index){
-    if(window.innerWidth >= 1200){
-      delay = index * 300;
-      return delay;
-    }
-    return 0
-  }
-
-  /*
-  
-      <ul className="bg-bubbles">
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
-
-  */
 
   return (
     <div className="App">
-      <div className="intro">
-        <h1 data-aos="fade-down-right">Armilla</h1>
-        <h5 data-aos="fade-up-left">3D spausdintų daiktų parduotuvė ir paslaugų tiekėjas</h5>
+      <div id="intro">
+        <div id="introText">
+          <div>
+            <h1>Armilla</h1>
+            <p>3D Spauzdinimo, Medžio pjovimo ir kitų 
+              technologijų produktų gamintojas numeris vienas</p>
+          </div>
+          <div id="introBtnContainer">
+            <Link to="/produktai">
+              <button className="btn btn-primary">Produktai <i className="fa-solid fa-chevron-right"></i></button>
+            </Link>
+            <Link to="/contact">
+              <button className="btn btn-secondary">Susisiekite <i className="fa-solid fa-chevron-right"></i></button>
+            </Link>
+          </div>
+        </div>
+        <canvas id="gradient-canvas" data-transition-in></canvas>
       </div>
 
-      <svg
-        className="waves"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlnsXlink="http://www.w3.org/1999/xlink"
-        viewBox="0 24 150 28"
-        preserveAspectRatio="none"
-      >
-        <defs>
-          <path
-            id="gentle-wave"
-            d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
-          />
-        </defs>
-        <g className="parallax">
-          <use
-            xlinkHref="#gentle-wave"
-            x="48"
-            y="0"
-            fill="rgba(240,248,255,0.7"
-          />
-          <use
-            xlinkHref="#gentle-wave"
-            x="48"
-            y="3"
-            fill="rgba(240,248,255,0.5)"
-          />
-          <use
-            xlinkHref="#gentle-wave"
-            x="48"
-            y="5"
-            fill="rgba(240,248,255,0.3)"
-          />
-          <use xlinkHref="#gentle-wave" x="48" y="7" fill="rgba(240,248,255)" />
-        </g>
-      </svg>
+      <section className="py-0" id="introduction">
+        <div className="container">
+          <div className="st-0 flex text-center">
+            <h5 className="st-1">ARMILLA.LT</h5>
+            <h2 className="st-2">Kas mes?</h2>
+            <p>Kokias paslaugas teikiame bei kokiais produktais prekiaujame</p>
+          </div>
+          <div className="container" id="introContainer">
+            <div className="introduction" data-aos="fade-right">
+              <div>
+                <p>Mūsų parduotuvėje galite rasti įvairių dekoracijų, dovanų idėjų, bei gyvenimą palengvinančių produktų.</p>
+                <p>
+                  Taip pat 3D Spausdiname ir pjauname lazerinėmis staklėmis pagal užsakymą
+                   - Galite užsisakyti
+                  daiktus, kurių nėra mūsų parduotuvėje.
+                </p>
+                <p>Visos mūsų prekės prieš išsiuntimą yra patikriniamos dėl defektų, todėl garantuojame, kad gausite
+                  tik aukštos kokybės produktus.
+                  Klausomės jūsų kritikos bei rekomendacijų ir visuomet bandome gerinti mūsų produktų kokybę. </p>
+                <p className="margin0">Dauguma mūsų produktų yra gaminami 3D Spausdintuvais bei lazerinėmis staklėmis.</p>
+              </div>
+            </div>
+            <div className="blobDiv" data-aos="fade-left">
+              <div className="blob"></div>
+            </div>
+          </div>
+        </div>
+
+      </section>
 
       <section className="py-0" id="features">
         <div className="container" data-aos="fade-up">
@@ -189,7 +106,7 @@ function Home() {
                   <h5>Investuojame atgal</h5>
                 </div>
                 <p>
-                  dalis pelno yra investiojama atgal į Armilla,
+                  Dalis pelno yra investiojama atgal į Armilla,
                   taip geriname produktų kokybę ir svetainės funkcionalumą.
                 </p>
               </div>
@@ -214,7 +131,7 @@ function Home() {
                   <div className="BGI flex">
                     <i className="fa-solid fa-layer-group"></i>
                   </div>
-                  <h5>inovuojame</h5>
+                  <h5>Inovuojame</h5>
                 </div>
                 <p>
                 Eksperimentuojame su įvairiais produktų gavybos būdais,
@@ -226,13 +143,13 @@ function Home() {
               <div className="cardMargin">
                 <div className="cardHead">
                   <div className="BGI flex">
-                    <i className="fa-solid fa-hand-holding-dollar"></i>
+                  <i className="fa-solid fa-box-open"></i>
                   </div>
-                  <h5>Investuojame atgal</h5>
+                  <h5>Garantuojame kokybę</h5>
                 </div>
                 <p>
-                  90% ar daugiau viso pelno yra investiojama atgal į Armilla,
-                  taip geriname produktų kokybę ir svetainės funkcionalumą.
+                  Visi parduodami produktai yra peržiūrimi komandos narių,
+                  įsitikinti jų kokybe, teikiame 14 dienų garantiją.
                 </p>
               </div>
             </div>
@@ -240,7 +157,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="py-0">
+      <section className="py-0" id="PopProducts">
         <div className="container" data-aos="fade-up">
           <div className="st-0 flex text-center">
             <h5 className="st-1">PRODUKTAI</h5>
@@ -250,86 +167,87 @@ function Home() {
         </div>
         <div className="container">
           <div className="itemDivHome">
-            {ItemData.map((item, index) => (
-              <div className="itemContainer" data-aos="flip-left" data-aos-delay={getDelay(index)}>
-              <div className="itemCard">
-                <div className="itemCard-head flex">
-                    <img src={item.Colors[0].Image} alt="Product" className="product-img" />
-                    <span className="back-text">ARM <br /> ILLA</span>
-                </div>
-                <div className="itemCard-body">
-                  <div className="product-desc">
-                    <span className="product-title">
-                      {item.Name}
-                      <span className="badge">Nauja</span>
-                    </span>
-                    <span className="product-caption">
-                      {item.Category}
-                    </span>
-                    <span className="product-rating">
-                      <i className="fa fa-star"></i>
-                      <i className="fa fa-star"></i>
-                      <i className="fa fa-star"></i>
-                      <i className="fa fa-star"></i>
-                      <i className="fa fa-star grey"></i>
-                    </span>
-                    <div className="product-about">
-                      <h4>APIE</h4>
-                      <span>{item.About}</span>
+            {ItemData.map((Item, itemIndex) => (
+              <div className="item-card-wrapper" data-aos="zoom-in" data-aos-delay={itemIndex * 100} key={itemIndex}>
+                <div className="item-card">
+                  <Link to={"/products?id=" + Item.ID}>
+                    <div className="item-img">
+                        {Item.Options.Materials !== undefined ? (
+                        <img
+                          className="img"
+                          src={Item.Options.Materials[0].Colors[0].Image}
+                          alt=""/>) : 
+                        ( Item.Image === undefined ? (<img
+                          className="img"
+                          src={Item.Options.Parameters[0].Image}
+                          alt="" /> )
+                          : (<img
+                          className="img"
+                          src={Item.Image}
+                          alt="" />))}
+                      <div className="review-popup-wrapper">
+                        <div className="review-popup">
+                          <span><i className="fa-solid fa-cart-shopping"></i>Peržiūreti</span>
+                        </div>
+                      </div>
                     </div>
+                  </Link>
+                  <div className="item-info">
+                      <div className="item-name">
+                        <Link to={"/products?id=" + Item.ID}>{Item.Name}</Link>
+                      </div>
+                      <div className="item-price">
+                          <p>{Item.Price} €</p>
+                      </div>
                   </div>
-                    <div className="product-properties">
-                      <span className="product-size">
-                        <h4>DYDIS</h4>
-                        <div className="product-sizes">
-                          {item.Sizes.map((size) => (
-                            <div className="size flex chosen">{size}</div>
-                          ))}
-                        </div>
-                      </span>
-                      <span className="product-color">
-                        <h4>Spalva<span className="matName"> | {item.Colors[0].Material}</span></h4>
-                        <div className="colorPallete">
-                          {item.Colors.map((colorData, index2) => (
-                            index2 === 0 ? (
-                              <div onClick={() => selectColor(index, item.ID, item.Price, colorData.Color, colorData.Material, colorData.Image)} className={"Color " + colorData.Color + " Selected"}></div>
-                            ) : (
-                              <div onClick={() => selectColor(index, item.ID, item.Price, colorData.Color, colorData.Material, colorData.Image)} className={"Color " + colorData.Color}></div>
-                            )
-                          ))}
-                        </div>
-                      </span>
-                      <div className="flex orderDiv">
-                        <button className="price productPrice" onClick={() => {}}>{item.Price + item.Colors[0].Extra} €</button>
-                          
-                          <button className="price productAddToCart flex" onClick={() => {addItem(
-                          item.ID,
-                          item.Name, 
-                          item.Price + selectedData(index, item.ID, "payExtra"), 
-                          item.Sizes[0], //Size
-                          selectedData(index, item.ID, "img"), //Selected item's image
-                          selectedData(index, item.ID, "colorID"),
-                          selectedData(index, item.ID, "color"), // Selected color
-                          selectedData(index, item.ID, "Material")
-                          );}}><i className="fa-solid fa-cart-arrow-down"></i></button>
-                        </div>
+                  {Item.Options.Parameters !== undefined ? /* If the item has Parameters */ (<> 
+                    {Item.Options.Parameters.length > 1 ? (
+                      <div className="Options">
+                        {Item.Options.Parameters.map((Parameter, index) => {
+                          if(index < 4){ // If there are more than 4 parameters, show only 4
+                            return <div className="Option" onMouseOver={() => changeImage(itemIndex, Parameter.Image)}><img src={Parameter.Image}></img> <div className="tooltiptext">{Parameter.ParamName}</div></div>
+                          }
+                        })} 
+                      { // If there are more than 4 parameters, show how many more
+                        Item.Options.Parameters.length > 4 ? (<span> + {Item.Options.Parameters.length - 4}</span>):(<></>) 
+                      }
                     </div>
+                    ):(<></>)}
+                  </>) : (<> 
+                    {Item.Options.Materials !== undefined ? ( /* If the item has Materials */
+                      <>
+                      {Item.Options.Materials.length > 1 || Item.Options.Materials[0].Colors.length > 1 ? /*Check if It has more than 1 option*/(
+                        <div className="Options">
+                          {Item.Options.Materials.map((Material, matIndex) => (
+                            <>
+                              {Material.Colors.map((Color, colorIndex) => {
+                                if(colorIndex == 0 && matIndex == 0){colorCount = 0}
+                                colorCount++;
+                                if(colorCount < 4){
+                                  return <div className="Option" onMouseOver={() => changeImage(itemIndex, Color.Image)}><img src={Color.Image}></img> <div className="tooltiptext">{Color.ColorText}</div></div>
+                                }
+                              })}
+                            </>
+                            ))}
+                        </div>
+                      ):(<></>)}
+                      {
+                        colorCount > 4 ? (<span> + {colorCount - 4}</span>):(<></>)
+                      }
+                      </>
+                    ):( <></>)} </>)/* ------END------- */}
                 </div>
               </div>
-            </div>
           ))}
-            </div>
+          </div>
         </div>
       </section>
       <section className="flex" id="paymentOptSec">
         <div className="flex" id="paymentOpt">
-          <img src={Mastercard} alt="" data-aos="fade-up" data-aos-delay="100"></img>
-          <img src={Visa} alt="" data-aos="fade-up" data-aos-delay="200"></img>
+          <img src={Mastercard} alt="" data-aos="zoom-in"></img>
+          <img src={Visa} alt=""data-aos="zoom-in" data-aos-delay="100"></img>
         </div>
       </section>
-      <div id="footer">
-        2022 © Armilla.lt. All Rights Reserved.
-      </div>
     </div>
   );
 }

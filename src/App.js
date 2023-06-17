@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import "./index.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { HashRouter as Router, Route, Routes} from "react-router-dom";
+
+//HashRouter
 
 import Navigation from "./components/Navigation";
 import Home from "./components/Home";
-import Dekoracijos from "./components/dekoracijos";
-import AdminPage from "./components/AdminPage";
-//import PreviewWindow from "./components/PreviewWindow";
-import About from "./components/About";
+import Products from "./components/Products";
 import Success from "./components/Success";
 import Contact from "./components/Contact";
+import ProductPage from "./components/productPage";
+import Footer from "./components/footer";
+import Documents from "./components/Documents";
 
 import { CartContext } from "./components/Contexts/CartContext";
 
@@ -17,7 +19,7 @@ function App() {
   const [cartItems, setCartItems] = useState([]);
 
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route
           path="/"
@@ -25,6 +27,7 @@ function App() {
             <CartContext.Provider value={{ cartItems, setCartItems}}>
               <Navigation />
               <Home />
+              <Footer />
             </CartContext.Provider>
           }
         />
@@ -33,16 +36,8 @@ function App() {
           element={
             <CartContext.Provider value={{ cartItems, setCartItems}}>
               <Navigation />
-              <Dekoracijos />
-            </CartContext.Provider>
-          }
-        />
-        <Route
-          path="/about"
-          element={
-            <CartContext.Provider value={{ cartItems, setCartItems}}>
-              <Navigation />
-              <About />
+              <Products />
+              <Footer />
             </CartContext.Provider>
           }
         />
@@ -55,13 +50,23 @@ function App() {
             </CartContext.Provider>
           }
         />
-        <Route exact path="/admin" element={<AdminPage />} />
+        <Route path="/products" element={            
+          <CartContext.Provider value={{ cartItems, setCartItems}}>
+              <Navigation />
+              <ProductPage />
+              <Footer />
+            </CartContext.Provider>} 
+        />
+        <Route path="/documents" element={
+          <>
+            <Documents />
+            <Footer />
+          </>}
+        />
         <Route path="/success" element={<Success />} />
       </Routes>
     </Router>
   );
 }
-
-//<Route exact path="/test" element={<PreviewWindow />} />
 
 export default App;

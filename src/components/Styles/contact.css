@@ -16,27 +16,36 @@
     border-top-right-radius: 0;
     background-color: #00dba4;
     color: white;
-    height: 100%;
     min-width: 350px;
     max-width: 350px;
     padding: 40px;
+    padding-bottom: 20px;
+    height: 100%;
 }
 
 .contactForm{
     border-radius: inherit;
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
+    box-shadow: rgb(17 12 46 / 15%) 15px 48px 60px 15px;
     background-color: white;
-    height: 100%;
     width: 100%;
     text-align: left;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
     padding: 40px;
 }
 
 #contacts{
     flex-direction: column;
     align-items: flex-start;
+    justify-content: flex-start;
+    height: 100%;
     gap: 20px
+}
+
+#note{
+    position: relative;
+    bottom: 0;
+    font-size: 12px;
 }
 
 .contactItem{gap: 14px; text-align: left;}
@@ -73,6 +82,48 @@
 
 .form-control:hover{border-color: #00dba4;}
 
+
+/* ===================== FILE INPUT ===================== */
+.file-area {
+    width: 100%;
+    position: relative;
+}
+.file-area input {
+    outline: 0px none #fff !important;
+    width: 100%;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px dashed rgb(207, 207, 207);
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+}
+.file-area:hover input {
+    border-color: #00dba4;
+}
+
+input[type=file]::file-selector-button {
+    display: none;
+}
+
+.file-area input:focus{
+    outline: 2px solid rgba(255, 255, 255);
+    outline: -webkit-focus-ring-color auto 5px;
+}
+/*
+.file-area input:valid + .file-dummy {
+    border-color: rgba(0, 255, 0);
+    background-color: rgb(166, 255, 166);
+}
+.file-area input:valid + .file-dummy .success {
+    display: inline-block;
+}
+.file-area input:valid + .file-dummy .default {
+    display: none;
+}
+*/
+
+
+
 .submitBtn{
     margin-top: 15px;
     border-radius: 20px;
@@ -88,10 +139,18 @@
     background-color: #00af83;
 }
 
+
+
 @media (max-width: 800px) {
     #contactWrapper{
+        position: relative;
+        top: 240px;
         flex-direction: column;
-        background-color: white;
+        background-color: transparent;
+        max-height: none;
+        height: auto;
+        padding-bottom: 20px;
+        box-shadow: none;
     }
 
     .primaryContact{
@@ -99,9 +158,21 @@
         min-width: auto;
         max-width: none;
         border-radius: 20px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        padding-bottom: 10px;
+       
+    }
+    .contactForm{
+        border-bottom-left-radius: 20px;
+        border-top-right-radius: 0;
     }
 
     .submitBtn{
         width: 100%;
+    }
+
+    #note{
+        padding-top: 30px;
     }
 }

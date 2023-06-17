@@ -1,0 +1,152 @@
+.item-card-wrapper{
+  opacity: 0;
+  font-family: 'lato', sans-serif;
+  position: relative;
+  width: 32%;
+  padding-left: 30px;
+  height: fit-content;
+}
+  .item-card{
+    width: 100%;
+    height: 100%;
+  }
+    .item-img{
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+      min-height: 260px;
+      max-height: 260px;
+      margin-bottom: 15px;
+      border-radius: 20px;
+      height: auto;
+      overflow: hidden;
+    }
+      .img{
+        width: 100%;
+        height: auto;
+        border-radius: 20px;
+      }
+      
+      .review-popup-wrapper{
+        position: absolute;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+      }
+        .review-popup{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          bottom: 0;
+          position: absolute;
+          color: white;
+          background-color: black;
+          width: 100%;
+          font-size: 14px;
+          transform: translate(0, 100%);
+          transition: all .2s ease;
+        }
+          .review-popup span{
+            padding: 10px;
+            margin: 0;
+          }
+          .review-popup i{
+            padding-right: 10px;
+          }
+          .review-popup:hover{
+            background-color: #3d4246;
+          }
+
+        .item-card:hover .review-popup{
+          transform: translate(0, 0);
+        }
+        .item-img:hover {
+          cursor: pointer;
+        }
+    
+  .item-name{
+    margin: 0 0 4px;
+    font-weight: 900;
+    font-size: 0.9rem;
+    width: fit-content;
+    margin: 0;
+  }
+    .item-name a{
+      color: #3d4246;
+      text-decoration: none;
+    }
+    .item-name:hover a{
+      color: black;
+    }
+  .item-price p{
+    font-weight: 400;
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: #222222;
+  }
+
+  .Options{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    gap: 5px;
+    margin-bottom: 10px;
+  }
+    .Option{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.171);
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .Option img{
+      width: auto;
+      min-height: 100%;
+      max-height: 100%;
+    }
+
+/* Tooltip text */
+.tooltiptext {
+  text-align: center;
+  background: #232323;
+  color: #fff;
+  padding: 4px 7px;
+  display: block;
+  position: absolute;
+  z-index: 2;
+  min-width: 44px;
+  margin-bottom: 60px;
+  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=0)";
+  filter: alpha(opacity=0);
+  visibility: hidden;
+  -webkit-transition: all .25s ease-out;
+  -moz-transition: all .25s ease-out;
+  -ms-transition: all .25s ease-out;
+  -o-transition: all .25s ease-out;
+  transition: all .25s ease-out;
+  -webkit-box-shadow: 2px 2px 6px rgba(0,0,0,.28);
+  -moz-box-shadow: 2px 2px 6px rgba(0,0,0,.28);
+  box-shadow: 2px 2px 6px #00000047;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: normal;
+  pointer-events: none;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.Option:hover .tooltiptext {
+  opacity: 1;
+  visibility: visible;
+}
+  
+  

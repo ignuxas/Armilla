@@ -9,7 +9,7 @@ function Success() {
           Visą informaciją apie prekę galite rasti savo el. pašte
           <br />Apie galimą atsiimti siuntą jums bus pranešta SMS žinute.
         </p>
-        <a href="http://localhost:3000/">Armilla</a>
+        <a href="https://armilla.lt/">Armilla</a>
       </div>
     </div>
   );
