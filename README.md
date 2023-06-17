@@ -1,6 +1,13 @@
-# Getting Started with Create React App
+# Armilla
+A fully functional online store prototype
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## About
+
+This project was my first React.js project, started on 2022-08-12 and took about a month to build (without further small optimizations). As I was building the project I learned a lot about React and how to use it by watching tutorials, teaching myself to use React functions, components, states and everything else. Looking back at this project there are many improvements that could be made, but overall I feel like this project was a success as I gained a great amount of experience with React, JavaScript, Node, Express and MongoDB.
+
+## About Project
+
+Presenting a fully functional online store prototype that offers users a seamless shopping experience. This prototype enables users to effortlessly browse a wide range of products, add them to their cart, and simulate the purchase process using the secure payment processing platform, Stripe. Note that it does not initiate any actual charges. The website boasts a sleek and modern design, coupled with an intuitive navigation system, ensuring a user-friendly experience. Additionally, the inclusion of essential legal documents ensures compliance and builds trust with customers.
 
 ## Available Scripts
 
@@ -38,33 +45,3 @@ If you aren't satisfied with the build tool and configuration choices, you can `
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
